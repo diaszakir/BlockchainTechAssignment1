@@ -2,6 +2,7 @@
 
 ## Names and Group
 Dias Zakir SE-2320
+
 Danel Kanbakova SE-2320
 
 ## Title
@@ -17,10 +18,6 @@ This is a Solidity smart contract for receiving Ether, checking the contract's b
    (`getBalance`) to get balance from account
    (`sendEther`) to send ether to account
    (`withDraw`) to withdraw ether
-
-### Steps to interact with the contract:
-
-Вот пример описания шагов для взаимодействия с контрактом в разделе **Steps to interact with the contract**:
 
 ---
 
@@ -124,9 +121,3 @@ Contract Balance: 0 ETH
 ```
 
 ---
-
-Эти шаги помогут вам развернуть и взаимодействовать с контрактом `EtherReceiver` через Web3.js и JavaScript.
-
-- Install dependencies:
-  ```bash
-  npm install web3
