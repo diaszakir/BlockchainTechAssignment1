@@ -15,9 +15,18 @@ This is a Solidity smart contract for receiving Ether, checking the contract's b
 
 2. **Interact with the Contract**:  
    Use the provided JavaScript code (`interact.js`) to send Ether to the contract and withdraw Ether from the contract.
+
    (`getBalance`) to get balance from account
+
    (`sendEther`) to send ether to account
+
    (`withDraw`) to withdraw ether
+
+3. **MetaMask**
+MetaMask is used in this project to manage Ethereum accounts and interact with the blockchain. It allows users to:
+
+Connect to the Ethereum Network: MetaMask acts as a bridge to connect the local Ethereum network (like Ganache) or public testnets.
+Manage Accounts: It securely stores and manages user accounts and private keys.
 
 ---
 
