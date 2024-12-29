@@ -55,10 +55,50 @@ async function getBalance() {
     console.log('Contract Balance:', web3.utils.fromWei(balance, 'ether'), 'ETH');
 }
 
+async function sendEtherToContract() {
+    const accounts = await web3.eth.getAccounts();
+    const sender = accounts[0]; 
+
+    try {
+        console.log(`Sending 1 ETH to contract from ${sender}...`);
+        const result = await web3.eth.sendTransaction({
+            from: sender,
+            to: contractAddress,
+            value: web3.utils.toWei('1', 'ether'),
+            gas: 200000
+        });
+        console.log('Ether sent successfully:', result.transactionHash);
+    } catch (error) {
+        console.error('Error sending Ether:', error.message);
+    }
+}
+
+async function withdraw() {
+    const accounts = await web3.eth.getAccounts();
+    const owner = accounts[0]; 
+
+    try {
+        console.log(`Attempting to withdraw funds by owner (${owner})...`);
+        const result = await contract.methods.withdraw().send({
+            from: owner, 
+            gas: 200000
+        });
+        console.log('Withdrawal successful:', result.transactionHash);
+    } catch (error) {
+        console.error('Error withdrawing funds:', error.message);
+    }
+}
+
 (async () => {
     try {
         console.log('Initial Contract Balance:');
-        await getBalance(); // Проверяем баланс до пополнения
+        await getBalance();
+
+        console.log('\nWithdrawing Funds...');
+        await withdraw(); 
+
+        console.log('\nFinal Contract Balance:');
+        await getBalance(); 
     } catch (error) {
         console.error('Error during execution:', error.message);
     }
