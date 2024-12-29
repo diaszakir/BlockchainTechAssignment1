@@ -1,75 +1,75 @@
-const { Web3 } = require('web3');  // Подключаем Web3
-const web3 = new Web3('http://127.0.0.1:7545'); // Подключаемся к Ganache
+const { Web3 } = require('web3');  
+const web3 = new Web3('http://127.0.0.1:7545'); 
 
-// ABI контракта
+
 const abi = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [],
-        "name": "getBalance",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
-// Адрес контракта
-const contractAddress = '0x29629A767e8AC731Eae8e5803E35ba3E5f7107a9'; // Адрес контракта
 
-// Создаем экземпляр контракта
+const contractAddress = '0x60104Ac3D1774d6Efaea70a94F1F3D9115B6F15E'; 
+
+
 const contract = new web3.eth.Contract(abi, contractAddress);
 
-// Функция для получения баланса контракта
+
 async function getBalance() {
     const balance = await contract.methods.getBalance().call();
     console.log('Contract Balance:', web3.utils.fromWei(balance, 'ether'), 'ETH');
 }
 
-// Функция для пополнения контракта
+
 async function sendEtherToContract() {
     const accounts = await web3.eth.getAccounts();
-    const sender = accounts[0]; // Отправитель — первый аккаунт в Ganache
+    const sender = accounts[0]; 
 
     try {
         console.log(`Sending 1 ETH to contract from ${sender}...`);
         const result = await web3.eth.sendTransaction({
             from: sender,
             to: contractAddress,
-            value: web3.utils.toWei('1', 'ether'), // Отправляем 1 ETH
+            value: web3.utils.toWei('1', 'ether'), 
             gas: 200000
         });
         console.log('Ether sent successfully:', result.transactionHash);
@@ -78,15 +78,15 @@ async function sendEtherToContract() {
     }
 }
 
-// Функция для вывода всех средств
+
 async function withdraw() {
     const accounts = await web3.eth.getAccounts();
-    const owner = accounts[0]; // Владелец контракта
+    const owner = accounts[0]; 
 
     try {
         console.log(`Attempting to withdraw funds by owner (${owner})...`);
         const result = await contract.methods.withdraw().send({
-            from: owner, // Важно, чтобы это был владелец контракта
+            from: owner, 
             gas: 200000
         });
         console.log('Withdrawal successful:', result.transactionHash);
@@ -95,23 +95,23 @@ async function withdraw() {
     }
 }
 
-// Выполняем функции
+
 (async () => {
     try {
         console.log('Initial Contract Balance:');
-        await getBalance(); // Проверяем баланс до пополнения
+        await getBalance(); 
 
         console.log('\nSending Ether to Contract...');
-        await sendEtherToContract(); // Пополняем контракт
+        await sendEtherToContract(); 
 
         console.log('\nUpdated Contract Balance:');
-        await getBalance(); // Проверяем баланс после пополнения
+        await getBalance(); 
 
         console.log('\nWithdrawing Funds...');
-        await withdraw(); // Выводим все средства
+        await withdraw(); 
 
         console.log('\nFinal Contract Balance:');
-        await getBalance(); // Проверяем баланс после вывода
+        await getBalance(); 
     } catch (error) {
         console.error('Error during execution:', error.message);
     }

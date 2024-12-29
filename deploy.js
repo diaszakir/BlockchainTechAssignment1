@@ -2,53 +2,51 @@ const { Web3 } = require('web3');
 
 const web3 = new Web3('http://127.0.0.1:7545');
 
-// Add your bytecode here (paste from Remix)
-const bytecode = '0x608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610277806100606000396000f3fe60806040526004361061002d5760003560e01c806312065fe01461003c5780638da5cb5b1461006757610037565b3661003757005b600080fd5b34801561004857600080fd5b50610051610092565b60405161005e91906101cf565b60405180910390f35b34801561007357600080fd5b5061007c61009a565b60405161008991906101f9565b60405180910390f35b600047905090565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000819050919050565b6100d4816100c1565b82525050565b60006020820190506100ef60008301846100cb565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610120826100f5565b9050919050565b61013081610115565b82525050565b600060208201905061014b6000830184610127565b92915050565b61015a81610115565b811461016557600080fd5b50565b60008135905061017781610151565b92915050565b6000602082840312156101935761019261014c565b5b60006101a184828501610168565b91505092915050565b6101b3816100c1565b81146101be57600080fd5b50565b6000813590506101d0816101aa565b92915050565b60006020828403121561019357610192610196565b60006101a184828501610168565b91505092915050565b6000602082019050610213600083018461012756fea2646970667358221220f5f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f664736f6c63430008000033'; // Replace this with your actual bytecode
+const bytecode = '0x6080604052348015600f57600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506103178061005f6000396000f3fe6080604052600436106100385760003560e01c806312065fe0146100445780633ccfd60b1461006f5780638da5cb5b146100865761003f565b3661003f57005b600080fd5b34801561005057600080fd5b506100596100b1565b60405161006691906101ed565b60405180910390f35b34801561007b57600080fd5b506100846100b9565b005b34801561009257600080fd5b5061009b6101b0565b6040516100a89190610249565b60405180910390f35b600047905090565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610147576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161013e906102c1565b60405180910390fd5b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc479081150290604051600060405180830381858888f193505050501580156101ad573d6000803e3d6000fd5b50565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000819050919050565b6101e7816101d4565b82525050565b600060208201905061020260008301846101de565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061023382610208565b9050919050565b61024381610228565b82525050565b600060208201905061025e600083018461023a565b92915050565b600082825260208201905092915050565b7f4f6e6c7920746865206f776e65722063616e2077697468647261770000000000600082015250565b60006102ab601b83610264565b91506102b682610275565b602082019050919050565b600060208201905081810360008301526102da8161029e565b905091905056fea264697066735822122096cbadfa74e84d2a205582bac911777fd6bcdfa6aa3ca987ecc4355a913034fd64736f6c634300081a0033'
 
-// ABI from your contract
 const abi = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [],
-        "name": "getBalance",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
 const deployContract = async () => {
@@ -78,17 +76,13 @@ const deployContract = async () => {
     }
 };
 
-// Main execution
 const main = async () => {
     try {
-        // Verify connection
         await web3.eth.net.isListening();
         console.log('Connected to Ganache successfully!');
         
-        // Deploy contract
         const deployedContract = await deployContract();
         
-        // Verify deployment
         const code = await web3.eth.getCode(deployedContract.options.address);
         if (code !== '0x') {
             console.log('Contract deployed and verified successfully!');
