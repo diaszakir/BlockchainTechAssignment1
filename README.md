@@ -25,8 +25,9 @@ This is a Solidity smart contract for receiving Ether, checking the contract's b
 3. **MetaMask**
 MetaMask is used in this project to manage Ethereum accounts and interact with the blockchain. It allows users to:
 
-Connect to the Ethereum Network: MetaMask acts as a bridge to connect the local Ethereum network (like Ganache) or public testnets.
-Manage Accounts: It securely stores and manages user accounts and private keys.
+1. Connect to the Ethereum Network: MetaMask acts as a bridge to connect the local Ethereum network (like Ganache) or public testnets.
+
+2. Manage Accounts: It securely stores and manages user accounts and private keys.
 
 ---
 
