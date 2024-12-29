@@ -57,14 +57,14 @@ async function getBalance() {
 
 async function sendEtherToContract() {
     const accounts = await web3.eth.getAccounts();
-    const sender = accounts[0]; 
+    const sender = accounts[0];
 
     try {
         console.log(`Sending 1 ETH to contract from ${sender}...`);
         const result = await web3.eth.sendTransaction({
             from: sender,
             to: contractAddress,
-            value: web3.utils.toWei('1', 'ether'),
+            value: web3.utils.toWei('1', 'ether'), 
             gas: 200000
         });
         console.log('Ether sent successfully:', result.transactionHash);
@@ -92,10 +92,10 @@ async function withdraw() {
 (async () => {
     try {
         console.log('Initial Contract Balance:');
-        await getBalance();
+        await getBalance(); 
 
         console.log('\nSending Ether to Contract...');
-        await sendEtherToContract();
+        await sendEtherToContract(); 
 
     
     } catch (error) {
